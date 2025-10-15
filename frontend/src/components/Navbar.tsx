@@ -61,7 +61,7 @@ export default function Navbar({
 
   return (
     <div className="w-full backdrop-blur-sm sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-end">
         <div className="flex items-center gap-3">
           {!user ? (
             <button
