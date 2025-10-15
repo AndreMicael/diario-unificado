@@ -4,7 +4,6 @@ import {
   ChevronDown,
   FileText,
   Users,
-  Menu,
   X,
   Phone,
   Mail,
@@ -139,19 +138,16 @@ export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
           <Navbar userName="Visitante" onLoginClick={onLoginClick} />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-4 md:py-8">
-          <div className="flex items-center justify-between mb-6 md:mb-8">
+          <div className="flex items-center justify-center md:justify-between mb-6 md:mb-8">
             <a href="/">
               <div className="flex items-center space-x-2 md:space-x-4">
-                <img src={Logo} alt="Logo" className="aspect-video w-44" />
+                <img
+                  src={Logo}
+                  alt="Logo"
+                  className="aspect-video w-36 md:w-44"
+                />
               </div>
             </a>
-
-            <button
-              className="md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
 
           {/* Search Section */}
