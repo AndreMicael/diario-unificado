@@ -20,9 +20,12 @@ import {
 
 import Logo from "../../src/public/logo.png";
 import BgHeader from "../../src/public/bg-header.jpg";
+import Navbar from "./Navbar";
+import { useAuth } from "../context/AuthContext";
 
 interface HomePageProps {
   onSearch: (name: string) => void;
+  onLoginClick?: () => void;
 }
 
 const faqItems = [
@@ -53,8 +56,28 @@ const faqItems = [
   },
 ];
 
-export default function HomePage({ onSearch }: HomePageProps) {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
+  const { user } = useAuth();
+  const [searchTerm, setSearchTerm] = useState(user?.name || "");
+  const [suggestedNames, setSuggestedNames] = useState<string[]>([]);
+
+  React.useEffect(() => {
+    if (user?.name) {
+      setSearchTerm(user.name);
+    }
+  }, [user?.name]);
+
+  React.useEffect(() => {
+    try {
+      const raw = localStorage.getItem("authUser");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed?.name && typeof parsed.name === "string") {
+          setSuggestedNames([parsed.name]);
+        }
+      }
+    } catch {}
+  }, []);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -112,6 +135,9 @@ export default function HomePage({ onSearch }: HomePageProps) {
         style={{ backgroundImage: `url(${BgHeader})` }}
       >
         <div className="absolute inset-0 bg-[#093089] bg-opacity-90 mix-blend-multiply"></div>
+        <div className="relative">
+          <Navbar userName="Visitante" onLoginClick={onLoginClick} />
+        </div>
         <div className="relative max-w-7xl mx-auto px-4 py-4 md:py-8">
           <div className="flex items-center justify-between mb-6 md:mb-8">
             <a href="/">
@@ -134,7 +160,7 @@ export default function HomePage({ onSearch }: HomePageProps) {
               Busque seu nome nos diários oficiais.
             </h2>
             <form onSubmit={handleSubmit} className="max-w-4xl mx-auto px-4">
-              <div className="bg-white rounded-full p-1 md:p-2 flex items-center shadow-lg">
+              <div className="bg-white rounded-full p-1 md:p-2 flex items-center shadow-lg relative">
                 <input
                   type="text"
                   value={searchTerm}
@@ -142,6 +168,16 @@ export default function HomePage({ onSearch }: HomePageProps) {
                   placeholder="Digite seu nome completo para buscar nos diários oficiais"
                   className="flex-1 bg-transparent outline-none text-gray-800 placeholder:text-gray-500 px-3 md:px-6 py-2 md:py-4 text-sm md:text-lg"
                 />
+                {searchTerm && (
+                  <button
+                    type="button"
+                    aria-label="Limpar"
+                    onClick={() => setSearchTerm("")}
+                    className="absolute right-14 md:right-16 text-gray-400 hover:text-gray-600 focus:outline-none"
+                  >
+                    <X size={18} className="md:w-5 md:h-5" />
+                  </button>
+                )}
                 <button
                   type="submit"
                   className="bg-[#093089] hover:bg-[#0a3a9a] transition-colors text-white p-2 md:p-4 rounded-full ml-1 md:ml-2"

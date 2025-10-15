@@ -1,8 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import HomePage from "./components/HomePage";
 import FormPage from "./components/FormPage";
 import ResultsPage from "./components/ResultsPage";
 import ChatPage from "./components/ChatPage";
+import LoginPageNew from "./components/LoginPageNew";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 
 interface Document {
   id: number;
@@ -13,10 +16,9 @@ interface Document {
   edition: string;
 }
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState<
-    "home" | "form" | "results" | "chat"
-  >("home");
+function AppInner() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [searchName, setSearchName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPhone, setUserPhone] = useState("");
@@ -25,21 +27,24 @@ export default function App() {
   );
 
   const handleSearch = (name: string) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     setSearchName(name);
-    // Definir valores padrão para email e telefone
-    setUserEmail("usuario@exemplo.com");
+    setUserEmail(user.email);
     setUserPhone("(65) 99999-9999");
-    setCurrentPage("results");
+    navigate("/resultados");
   };
 
   const handleFormSubmit = (email: string, phone: string) => {
     setUserEmail(email);
     setUserPhone(phone);
-    setCurrentPage("results");
+    navigate("/resultados");
   };
 
   const handleBackToHome = () => {
-    setCurrentPage("home");
+    navigate("/");
     setSearchName("");
     setUserEmail("");
     setUserPhone("");
@@ -47,39 +52,82 @@ export default function App() {
 
   const handleOpenChat = (document: Document) => {
     setSelectedDocument(document);
-    setCurrentPage("chat");
+    navigate("/chat");
   };
 
   const handleBackToResults = () => {
-    setCurrentPage("results");
+    navigate("/resultados");
     setSelectedDocument(null);
   };
 
   return (
     <div className="size-full">
-      {currentPage === "home" && <HomePage onSearch={handleSearch} />}
-      {currentPage === "form" && (
-        <FormPage
-          searchName={searchName}
-          onSubmit={handleFormSubmit}
-          onBack={handleBackToHome}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              onSearch={handleSearch}
+              onLoginClick={() => navigate("/login")}
+            />
+          }
         />
-      )}
-      {currentPage === "results" && (
-        <ResultsPage
-          searchName={searchName}
-          userEmail={userEmail}
-          onBack={handleBackToHome}
-          onOpenChat={handleOpenChat}
+        <Route
+          path="/login"
+          element={<LoginPageNew onBack={() => navigate(-1)} />}
         />
-      )}
-      {currentPage === "chat" && selectedDocument && (
-        <ChatPage
-          document={selectedDocument}
-          searchName={searchName}
-          onBack={handleBackToResults}
+        <Route
+          path="/registro"
+          element={<LoginPageNew onBack={() => navigate(-1)} />}
         />
-      )}
+        <Route
+          path="/resultados"
+          element={
+            user ? (
+              <ResultsPage
+                searchName={searchName}
+                userEmail={userEmail}
+                onBack={handleBackToHome}
+                onOpenChat={handleOpenChat}
+              />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            user && selectedDocument ? (
+              <ChatPage
+                document={selectedDocument}
+                searchName={searchName}
+                onBack={handleBackToResults}
+              />
+            ) : (
+              <Navigate to="/resultados" replace />
+            )
+          }
+        />
+        <Route
+          path="/form"
+          element={
+            <FormPage
+              searchName={searchName}
+              onSubmit={handleFormSubmit}
+              onBack={handleBackToHome}
+            />
+          }
+        />
+      </Routes>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppInner />
+    </AuthProvider>
   );
 }

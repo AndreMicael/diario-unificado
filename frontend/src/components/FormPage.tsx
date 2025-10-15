@@ -11,6 +11,7 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
+import Navbar from "./Navbar";
 
 interface FormPageProps {
   searchName: string;
@@ -38,7 +39,10 @@ export default function FormPage({
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] text-white">
+      <div className="bg-gradient-to-r from-[#093089] to-[#093089] text-white">
+        <div className="relative">
+          <Navbar userName={searchName || "Visitante"} />
+        </div>
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <button

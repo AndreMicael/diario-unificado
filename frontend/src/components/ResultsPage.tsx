@@ -20,8 +20,7 @@ import {
   Shield,
   Gavel,
 } from "lucide-react";
-
-import Logo from "../../src/public/logo.png";
+import NavbarSecondary from "./NavbarSecondary";
 
 interface Document {
   id: number;
@@ -186,19 +185,18 @@ export default function ResultsPage({
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
       <div className="bg-gradient-to-r from-[#093089] to-[#093089] text-white">
+        <div className="relative">
+          <NavbarSecondary userName={searchName || "Visitante"} />
+        </div>
         <div className="max-w-7xl mx-auto px-4 py-4 md:py-6">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
             <button
               onClick={onBack}
-              className="flex items-center gap-2 md:gap-3 hover:text-blue-200 transition-colors"
+              className="flex items-center gap-2 hover:text-blue-200 transition-colors"
             >
-              <ArrowLeft size={20} className="md:w-6 md:h-6" />
-              <span className="text-base md:text-lg">Voltar</span>
+              <ArrowLeft size={18} className="md:w-5 md:h-5" />
+              <span className="text-sm md:text-base">Voltar</span>
             </button>
-
-            <div className="flex items-center space-x-2 md:space-x-3">
-              <img src={Logo} alt="Logo" className="aspect-video w-44" />
-            </div>
           </div>
         </div>
       </div>

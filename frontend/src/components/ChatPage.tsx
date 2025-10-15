@@ -15,6 +15,7 @@ import {
   ThumbsDown,
   RefreshCw,
 } from "lucide-react";
+import Navbar from "./Navbar";
 
 interface Document {
   id: number;
@@ -159,6 +160,9 @@ export default function ChatPage({
     <div className="bg-gray-50 min-h-screen flex flex-col">
       {/* Header */}
       <div className="bg-gradient-to-r from-[#093089] to-[#093089] text-white">
+        <div className="relative">
+          <Navbar userName={searchName || "Visitante"} />
+        </div>
         <div className="max-w-7xl mx-auto px-4 py-4 md:py-6">
           <div className="flex items-center justify-between">
             <button
