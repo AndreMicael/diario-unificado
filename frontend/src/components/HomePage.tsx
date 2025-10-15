@@ -211,7 +211,7 @@ export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              SERVIÇOS EM DESTAQUE
+              Serviços em destaque
             </h2>
             <div className="w-24 h-1 bg-[#093089] mx-auto"></div>
           </div>
@@ -245,15 +245,15 @@ export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
 
       {/* Stats Section */}
       <div className="py-8 md:py-16 bg-[#093089] text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-8 md:mb-12">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
+          <div className="text-center mb-8 md:mb-12 w-full">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              FATOS E INDICADORES
+              Fatos e indicadores
             </h2>
             <div className="w-24 h-1 bg-white mx-auto"></div>
           </div>
 
-          <div className="grid grid-cols-2 justify-items-center mx-auto lg:grid-cols-4 gap-4 md:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mx-auto">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="bg-white/10 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
@@ -276,7 +276,7 @@ export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Perguntas Frequentes
+              Perguntas frequentes
             </h2>
             <div className="w-24 h-1 bg-[#093089] mx-auto"></div>
           </div>
@@ -324,7 +324,7 @@ export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
 
             <div>
               <h4 className="font-semibold mb-4 text-sm md:text-base">
-                Contato
+                Contatos
               </h4>
               <div className="space-y-2 text-blue-100 text-sm md:text-base">
                 <div className="flex items-center space-x-2">
@@ -346,7 +346,7 @@ export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
           <div className="border-t border-[#0a3a9a] mt-6 md:mt-8 pt-6 md:pt-8 text-center text-blue-100 text-sm md:text-base">
             <p>
               © 2025 - Diário Oficial de Mato Grosso - Todos os direitos
-              reservados
+              reservados reservados
             </p>
           </div>
         </div>

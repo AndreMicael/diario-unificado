@@ -131,6 +131,12 @@ export default function ResultsPage({
   onBack,
   onOpenChat,
 }: ResultsPageProps) {
+  const [activeFilter, setActiveFilter] = React.useState<string>("Todos");
+  const availableTypes = React.useMemo(() => {
+    const set = new Set<string>();
+    for (const r of mockResults) set.add(r.type);
+    return ["Todos", ...Array.from(set)];
+  }, []);
   const getTypeIcon = (type: string) => {
     switch (type.toLowerCase()) {
       case "nomeação":
@@ -181,6 +187,13 @@ export default function ResultsPage({
     }
   };
 
+  const normalizedActive = activeFilter.toLowerCase();
+  const resultsToShow = mockResults.filter((r) =>
+    normalizedActive === "todos"
+      ? true
+      : r.type.toLowerCase() === normalizedActive
+  );
+
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
@@ -228,7 +241,7 @@ export default function ResultsPage({
             <div className="bg-gradient-to-r from-[#093089] to-[#093089] text-white rounded-xl p-3 md:p-4">
               <div className="text-center">
                 <div className="text-2xl md:text-3xl font-bold">
-                  {mockResults.length}
+                  {resultsToShow.length}
                 </div>
                 <div className="text-blue-100 text-sm md:text-base">
                   Menções Encontradas
@@ -251,21 +264,22 @@ export default function ResultsPage({
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {[
-                "Todos",
-                "Nomeação",
-                "Publicação",
-                "Designação",
-                "Intimação",
-                "Resultado",
-              ].map((filter) => (
-                <button
-                  key={filter}
-                  className="px-3 md:px-4 py-1 md:py-2 rounded-full border border-gray-200 hover:border-[#093089] hover:text-[#093089] transition-colors text-xs md:text-sm"
-                >
-                  {filter}
-                </button>
-              ))}
+              {availableTypes.map((filter) => {
+                const isActive = activeFilter === filter;
+                return (
+                  <button
+                    key={filter}
+                    onClick={() => setActiveFilter(filter)}
+                    className={`px-3 md:px-4 py-1 md:py-2 rounded-full border transition-colors text-xs md:text-sm ${
+                      isActive
+                        ? "border-[#093089] text-white bg-[#093089]"
+                        : "border-gray-200 hover:border-[#093089] hover:text-[#093089]"
+                    }`}
+                  >
+                    {filter}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -274,7 +288,7 @@ export default function ResultsPage({
       {/* Results List */}
       <div className="max-w-7xl mx-auto px-4 py-4 md:py-8">
         <div className="space-y-4 md:space-y-6">
-          {mockResults.map((result) => {
+          {resultsToShow.map((result) => {
             const TypeIcon = getTypeIcon(result.type);
             const typeColorClass = getTypeColor(result.type);
 
