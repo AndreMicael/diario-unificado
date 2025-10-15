@@ -207,35 +207,50 @@ export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
       </div>
 
       {/* Featured Services */}
-      <div className="py-8 md:py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+      <div className="py-12 md:py-20 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-[#093089] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-blue-400 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 relative">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Serviços em destaque
             </h2>
-            <div className="w-24 h-1 bg-[#093089] mx-auto"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-transparent via-[#093089] to-transparent mx-auto"></div>
+            <p className="text-gray-600 mt-4 text-base md:text-lg max-w-2xl mx-auto">
+              Explore as principais funcionalidades do nosso sistema
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {featuredServices.map((service, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-4 md:p-6 shadow-lg hover:shadow-xl transition-shadow"
+                className="group bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100"
               >
-                <div
-                  className={`${service.color} w-12 h-12 md:w-16 md:h-16 rounded-lg flex items-center justify-center mb-3 md:mb-4`}
-                >
-                  <service.icon className="text-white" size={24} />
+                <div className="mb-6">
+                  <div
+                    className={`${service.color} w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                  >
+                    <service.icon className="text-white" size={28} />
+                  </div>
                 </div>
-                <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-2">
+
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 group-hover:text-[#093089] transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 mb-3 md:mb-4 text-sm md:text-base">
+                <p className="text-gray-600 mb-6 text-sm md:text-base leading-relaxed">
                   {service.description}
                 </p>
-                <button className="text-[#093089] font-medium flex items-center space-x-2 hover:text-[#0a3a9a] text-sm md:text-base">
+
+                <button className="w-full bg-gradient-to-r from-[#093089] to-[#0a3a9a] text-white font-semibold py-3 px-6 rounded-xl hover:from-[#0a3a9a] hover:to-[#093089] transition-all duration-300 flex items-center justify-center space-x-2 group-hover:shadow-lg">
                   <span>Acessar</span>
-                  <ArrowRight size={14} className="md:w-4 md:h-4" />
+                  <ArrowRight
+                    size={16}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
                 </button>
               </div>
             ))}
@@ -244,25 +259,38 @@ export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
       </div>
 
       {/* Stats Section */}
-      <div className="py-8 md:py-16 bg-[#093089] text-white">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
-          <div className="text-center mb-8 md:mb-12 w-full">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+      <div className="py-12 md:py-20 bg-gradient-to-br from-[#093089] via-[#0a3a9a] to-[#093089] text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-2 h-2 bg-white rounded-full"></div>
+          <div className="absolute top-20 right-20 w-1 h-1 bg-white rounded-full"></div>
+          <div className="absolute bottom-20 left-1/4 w-1.5 h-1.5 bg-white rounded-full"></div>
+          <div className="absolute bottom-10 right-1/3 w-1 h-1 bg-white rounded-full"></div>
+          <div className="absolute top-1/2 left-10 w-1 h-1 bg-white rounded-full"></div>
+          <div className="absolute top-1/3 right-10 w-2 h-2 bg-white rounded-full"></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 relative">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
               Fatos e indicadores
             </h2>
-            <div className="w-24 h-1 bg-white mx-auto"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto"></div>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="bg-white/10 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-                  <stat.icon size={24} className="md:w-8 md:h-8" />
+              <div key={index} className="group text-center">
+                <div className="mb-6">
+                  <div className="bg-white/10 backdrop-blur-sm w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-all duration-300 group-hover:scale-110">
+                    <stat.icon
+                      size={24}
+                      className="md:w-8 md:h-8 text-white group-hover:text-blue-100 transition-colors"
+                    />
+                  </div>
                 </div>
-                <div className="text-2xl md:text-4xl font-bold mb-1 md:mb-2">
+                <div className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
                   {stat.number}
                 </div>
-                <div className="text-blue-100 text-sm md:text-base">
+                <div className="text-blue-100 text-sm md:text-base font-medium">
                   {stat.label}
                 </div>
               </div>
@@ -315,39 +343,105 @@ export default function HomePage({ onSearch, onLoginClick }: HomePageProps) {
       </div>
 
       {/* Footer */}
-      <div className="bg-[#093089] text-white py-8 md:py-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <div>
-              <img src={Logo} alt="Logo" className="aspect-video w-40" />
+      <div className="bg-gradient-to-br from-[#093089] via-[#0a3a9a] to-[#093089] text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-5 left-5 w-1 h-1 bg-white rounded-full"></div>
+          <div className="absolute top-10 right-10 w-1.5 h-1.5 bg-white rounded-full"></div>
+          <div className="absolute bottom-10 left-1/4 w-1 h-1 bg-white rounded-full"></div>
+          <div className="absolute bottom-5 right-1/3 w-1.5 h-1.5 bg-white rounded-full"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 py-12 md:py-16 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            {/* Logo Section */}
+            <div className="md:col-span-1">
+              <img
+                src={Logo}
+                alt="Logo"
+                className="aspect-video w-32 md:w-40 mb-4"
+              />
+              <p className="text-blue-100 text-sm md:text-base leading-relaxed">
+                Sistema oficial de busca nos diários oficiais do estado de Mato
+                Grosso.
+              </p>
             </div>
 
+            {/* Quick Links */}
             <div>
-              <h4 className="font-semibold mb-4 text-sm md:text-base">
+              <h4 className="font-semibold mb-6 text-base md:text-lg text-white">
+                Links Rápidos
+              </h4>
+              <div className="space-y-3 text-blue-100 text-sm md:text-base">
+                <a
+                  href="#"
+                  className="block hover:text-white transition-colors"
+                >
+                  Diário Oficial
+                </a>
+                <a
+                  href="#"
+                  className="block hover:text-white transition-colors"
+                >
+                  Consultas
+                </a>
+                <a
+                  href="#"
+                  className="block hover:text-white transition-colors"
+                >
+                  Legislação
+                </a>
+                <a
+                  href="#"
+                  className="block hover:text-white transition-colors"
+                >
+                  Ajuda
+                </a>
+              </div>
+            </div>
+
+            {/* Contact Section */}
+            <div>
+              <h4 className="font-semibold mb-6 text-base md:text-lg text-white">
                 Contatos
               </h4>
-              <div className="space-y-2 text-blue-100 text-sm md:text-base">
-                <div className="flex items-center space-x-2">
-                  <Phone size={14} className="md:w-4 md:h-4" />
+              <div className="space-y-4 text-blue-100 text-sm md:text-base">
+                <div className="flex items-center space-x-3 group">
+                  <div className="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-colors">
+                    <Phone size={16} className="text-white" />
+                  </div>
                   <span>(65) 3613-6000</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Mail size={14} className="md:w-4 md:h-4" />
+                <div className="flex items-center space-x-3 group">
+                  <div className="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-colors">
+                    <Mail size={16} className="text-white" />
+                  </div>
                   <span>contato@mt.gov.br</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin size={14} className="md:w-4 md:h-4" />
+                <div className="flex items-center space-x-3 group">
+                  <div className="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-colors">
+                    <MapPin size={16} className="text-white" />
+                  </div>
                   <span>Cuiabá - MT</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-[#0a3a9a] mt-6 md:mt-8 pt-6 md:pt-8 text-center text-blue-100 text-sm md:text-base">
-            <p>
-              © 2025 - Diário Oficial de Mato Grosso - Todos os direitos
-              reservados reservados
-            </p>
+          <div className="border-t border-white/20 mt-12 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-blue-100 text-sm md:text-base text-center md:text-left">
+                © 2025 - Diário Oficial de Mato Grosso - Todos os direitos
+                reservados
+              </p>
+              <div className="flex items-center space-x-6 text-blue-100 text-sm">
+                <a href="#" className="hover:text-white transition-colors">
+                  Política de Privacidade
+                </a>
+                <a href="#" className="hover:text-white transition-colors">
+                  Termos de Uso
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
